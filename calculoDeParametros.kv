@@ -1,0 +1,73 @@
+<filtroScreen>
+
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 10
+
+        Button:
+            text: 'Calcular'
+            on_release:
+                root.calcular_parametros()
+
+
+        Label:
+            text: 'fc'
+        TextInput:
+            id: fc_text_input
+        Label:
+            text: 'k'
+        TextInput:
+            id: k_text_input
+
+        BoxLayout:
+            orientation: 'horizontal'
+            padding: 10
+
+            Label:
+                text: 'C1:'
+            Label:
+                text: ''
+                id: C1_label
+
+        BoxLayout:
+            orientation: 'horizontal'
+            padding: 10
+
+            Label:
+                text: 'C2:'
+            Label:
+                text: ''
+                id: C2_label
+
+        BoxLayout:
+            orientation: 'horizontal'
+            padding: 10
+
+            Label:
+                text: 'R1:'
+            Label:
+                text: ''
+                id: R1_label
+
+
+        BoxLayout:
+            orientation: 'horizontal'
+            padding: 10
+
+            Label:
+                text: 'R2:'
+            Label:
+                text: ''
+                id: R2_label
+
+
+        BoxLayout:
+            orientation: 'horizontal'
+            padding: 10
+
+            Label:
+                text: 'R3:'
+            Label:
+                text: ''
+                id: R3_label
