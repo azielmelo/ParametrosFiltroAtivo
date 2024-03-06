@@ -10,15 +10,24 @@
             on_release:
                 root.calcular_parametros()
 
+        BoxLayout:
+            orientation: 'horizontal'
+            padding: 10
 
-        Label:
-            text: 'fc'
-        TextInput:
-            id: fc_text_input
-        Label:
-            text: 'k'
-        TextInput:
-            id: k_text_input
+            Label:
+                text: 'fc'
+            TextInput:
+                id: fc_text_input
+                multiline: False
+        BoxLayout:
+            orientation: 'horizontal'
+            padding: 10
+
+            Label:
+                text: 'k'
+            TextInput:
+                id: k_text_input
+                multiline: False
 
         BoxLayout:
             orientation: 'horizontal'
