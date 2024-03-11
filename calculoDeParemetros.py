@@ -43,7 +43,7 @@ class FiltroScreen(Screen):
                 C_2 = C_2 * 0.1
             elif i != '.':
                 if i == '1':
-                    C_2 = C_2 * int(i)
+                    C_2 = C_2 * 1
                     break
                 elif i == '2':
                     C_2 = C_2 * 2.2
@@ -64,7 +64,7 @@ class FiltroScreen(Screen):
                     C_2 = C_2 * 6.8
                     break
                 elif i == '8':
-                    C_2 = C_2 * 8.2
+                    C_2 = C_2 * 10
                     break
                 elif i == '9':
                     C_2 = C_2 * 10
