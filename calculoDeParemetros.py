@@ -1,6 +1,6 @@
 # Autor: Aziel de Fontes Melo
 # Data: 05/03/2024
-
+import math
 import os
 
 
@@ -16,6 +16,33 @@ pi = 3.14159265359
 # Tabela para filtros butterworth
 a = [1.414214, 1, 0.765367, 0.618034, 0.517638, 0.445042, 0.390181]
 b = 1
+
+
+# Códico da defasadora
+
+f_defasada = int(input("frequência a ser defasada \n"))
+fi_def = int(input("Defasamento desejado \n"))
+
+C_defasadora = 100*10**-9
+
+aux1 = 2*math.tan(fi_def/2)
+a_defasadora = (-1-(1+aux1**2)**(1/2))/aux1
+
+print(a_defasadora)
+
+R1_defasadora = 1/(2*a_defasadora*2*pi*f_defasada*C_defasadora)
+R2_defasadora = 4*R1_defasadora
+R3_defasadora = 8*R1_defasadora
+R4_defasadora = R3_defasadora
+
+print("Valores para a defasadora:")
+print("C = " + str(C_defasadora*10**9) + "nF")
+print("R1 = " + str(R1_defasadora) + "ohm")
+print("R2 = " + str(R2_defasadora) + "ohm")
+print("R3 = " + str(R3_defasadora) + "ohm")
+print("R4 = " + str(R4_defasadora) + "ohm")
+# fim do código da defasadora
+
 
 kv = Builder.load_file("calculoDeParametros.kv")
 
