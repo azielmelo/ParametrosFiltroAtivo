@@ -10,7 +10,7 @@ b = 1
 print("Olá, Escreva abaixo o valor da frequência de corte desejada:")
 fc = int(input())
 print("Agora, escreva abaixo o valor do ganho máximo desejado (maior que 1):")
-k = int(input())
+k = float(input())
 
 C_2 = 10 / fc
 C_2 = round(C_2, 3)
