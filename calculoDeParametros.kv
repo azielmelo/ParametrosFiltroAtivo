@@ -24,6 +24,10 @@
                     id: fc_text_input
                     multiline: False
 
+            Button:
+                text: 'tipo'
+                id: tipoBotao
+
             BoxLayout:
                 orientation: 'horizontal'
                 padding: 10
@@ -102,3 +106,15 @@
 
         Image:
             source: 'filtro_passa_baixa_inversor.png'
+
+<TipoDropDown>
+    Button:
+        text: 'Butterworth'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('Butterworth')
+    Button:
+        text: 'Chebyshev'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('Chebyshev')

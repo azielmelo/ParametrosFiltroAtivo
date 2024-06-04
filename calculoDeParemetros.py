@@ -1,16 +1,16 @@
 # Autor: Aziel de Fontes Melo
 # Data: 05/03/2024
-import math
+
 import os
 
+os.environ['KIVY_GL_BACKEND'] = 'angle_sdl2'
 
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager
 from kivy.uix.screenmanager import Screen
+from kivy.uix.dropdown import DropDown
 
-
-os.environ['KIVY_GL_BACKEND'] = 'angle_sdl2'
 
 pi = 3.14159265359
 
@@ -47,6 +47,10 @@ b = [1, 3.3114037]
 
 kv = Builder.load_file("calculoDeParametros.kv")
 
+
+class TipoDropDown(DropDown):
+    pass
+
 class FiltroScreen(Screen):
 
     def retorna_inteiro(self, str_obj):  # Pega o valor de uma label, string, e retorna um inteiro
@@ -56,7 +60,7 @@ class FiltroScreen(Screen):
 
     def calcular_parametros(self):
 
-        tipo = 0
+        tipo = 1
         fc = self.retorna_inteiro(self.ids.fc_text_input.text)
         k = self.retorna_inteiro(self.ids.k_text_input.text)
 
@@ -114,11 +118,14 @@ class FiltroScreen(Screen):
 
     def __init__(self, **kwargs):
         super(FiltroScreen, self).__init__(**kwargs)
+        tipo_drop_down = TipoDropDown()
+        self.ids.tipoBotao.bind(on_release=tipo_drop_down.open)
+        tipo_drop_down.bind(on_select=lambda instance, x: setattr(self.ids.tipoBotao, 'text', x))
         pass
 
 
 sm = ScreenManager()
-sm.add_widget(FiltroScreen(name="Filtro Chebyshev"))
+sm.add_widget(FiltroScreen(name="Filtro"))
 
 
 class FiltroApp(App):
