@@ -10,39 +10,48 @@ from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager
 from kivy.uix.screenmanager import Screen
 from kivy.uix.dropdown import DropDown
+import math
 
 
 pi = 3.14159265359
 
-# Tabela para filtros de 2ª ordem a[0] filtros butterworth, a[1] filtros chebyshev
-a = [1.414214, 2.372356]
-b = [1, 3.3114037]
+# Tabela para filtros de 2ª ordem filtros butterworth,
+a = 0.765367
+b = 1
+#a = 1.847759
+#b = 1
+# filtros chebyshev 2ª ordem
+#a = 1.275460
+#b = 0.622925
+#a = 0.528313
+#b = 1.330031
 
+# Códico da defasadora
 
-# # Códico da defasadora
-#
-# f_defasada = float(input("frequência a ser defasada \n"))
-# fi_def = float(input("Defasamento desejado \n"))
-#
-# C_defasadora = 10*10**-9
-#
-# aux1 = 2*math.tan((fi_def*pi/180)/2)
-# a_defasadora = (-1-(1+aux1**2)**(1/2))/aux1
-#
-# print(a_defasadora)
-#
-# R1_defasadora = 1/(2*a_defasadora*2*pi*f_defasada*C_defasadora)
-# R2_defasadora = 4*R1_defasadora
-# R3_defasadora = 8*R1_defasadora
-# R4_defasadora = R3_defasadora
-#
-# print("Valores para a defasadora:")
-# print("C = " + str(C_defasadora*10**9) + "nF")
-# print("R1 = " + str(R1_defasadora) + "ohm")
-# print("R2 = " + str(R2_defasadora) + "ohm")
-# print("R3 = " + str(R3_defasadora) + "ohm")
-# print("R4 = " + str(R4_defasadora) + "ohm")
-# # fim do código da defasadora
+f_defasada = float(input("frequência a ser defasada \n"))
+fi_def = float(input("Defasamento desejado \n"))
+C_defasadora = 100*10**-9
+aux1 = 2*math.tan((fi_def*pi/180)/2)
+
+if fi_def > 0:
+    a_defasadora = (-1 + (1 + aux1 ** 2) ** (1 / 2)) / aux1
+else:
+    a_defasadora = (-1 - (1 + aux1 ** 2) ** (1 / 2)) / aux1
+
+print(aux1)
+
+R1_defasadora = 1/(2*a_defasadora*2*pi*f_defasada*C_defasadora)
+R2_defasadora = 4*R1_defasadora
+R3_defasadora = 8*R1_defasadora
+R4_defasadora = R3_defasadora
+
+print("Valores para a defasadora:")
+print("C = " + str(C_defasadora*10**9) + "nF")
+print("R1 = " + str(R1_defasadora) + "ohm")
+print("R2 = " + str(R2_defasadora) + "ohm")
+print("R3 = " + str(R3_defasadora) + "ohm")
+print("R4 = " + str(R4_defasadora) + "ohm")
+# fim do código da defasadora
 
 
 kv = Builder.load_file("calculoDeParametros.kv")
@@ -60,50 +69,16 @@ class FiltroScreen(Screen):
 
     def calcular_parametros(self):
 
-        tipo = 1
         fc = self.retorna_inteiro(self.ids.fc_text_input.text)
         k = self.retorna_inteiro(self.ids.k_text_input.text)
+        p = self.retorna_inteiro(self.ids.p_text_input.text)
 
-        C_2 = 10 / fc
+        C_2 = 0.00001 / fc
 
-        C_2_string = str(C_2)
-
-        for i in C_2_string:
-            if i == '0':
-                C_2 = C_2 * 0.1
-            elif i != '.':
-                if i == '1':
-                    C_2 = C_2 * 1
-                    break
-                elif i == '2':
-                    C_2 = C_2 * 2.2
-                    break
-                elif i == '3':
-                    C_2 = C_2 * 3.3
-                    break
-                elif i == '4':
-                    C_2 = C_2 * 4.7
-                    break
-                elif i == '5':
-                    C_2 = C_2 * 4.7
-                    break
-                elif i == '6':
-                    C_2 = C_2 * 5.6
-                    break
-                elif i == '7':
-                    C_2 = C_2 * 6.8
-                    break
-                elif i == '8':
-                    C_2 = C_2 * 10
-                    break
-                elif i == '9':
-                    C_2 = C_2 * 10
-                    break
-
-        C_1 = 0.9 * ((a[tipo]**2)*C_2)/(4*b[tipo]*(k+1))
-        R_2 = (2 * (k+1)) / ((a[tipo]*C_2 + ((a[tipo]**2)*(C_2**2)-4*b[tipo]*C_1*C_2*(k+1))**(1/2))*2*pi*fc)
+        C_1 = p * ((a**2)*C_2)/(4*b*(k+1))
+        R_2 = (2 * (k+1)) / ((a*C_2 + ((a**2)*(C_2**2)-4*b*C_1*C_2*(k+1))**(1/2))*2*pi*fc)
         R_1 = R_2 / k
-        R_3 = 1 / (b[tipo]*C_1*C_2*((2*pi*fc)**2)*R_2)
+        R_3 = 1 / (b*C_1*C_2*((2*pi*fc)**2)*R_2)
 
         if self.retorna_inteiro(self.ids.fator_multiplicador.text) != 0 :
             fator10 = self.retorna_inteiro(self.ids.fator_multiplicador.text)
