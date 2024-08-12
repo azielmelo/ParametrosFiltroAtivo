@@ -15,12 +15,12 @@ import math
 
 pi = 3.14159265359
 
-# Tabela para filtros de 2ª ordem filtros butterworth,
+# Tabela para filtros de 4ª ordem filtros butterworth,
 a = 0.765367
 b = 1
 #a = 1.847759
 #b = 1
-# filtros chebyshev 2ª ordem
+# filtros chebyshev 4ª ordem
 #a = 1.275460
 #b = 0.622925
 #a = 0.528313
@@ -99,14 +99,20 @@ class FiltroScreen(Screen):
         pass
 
 
+class DefasadoraScreen(Screen):
+    pass
+
+
 sm = ScreenManager()
 sm.add_widget(FiltroScreen(name="Filtro"))
+sm.add_widget(DefasadoraScreen(name="Defasadora"))
 
 
 class FiltroApp(App):
 
     def build(self):
         return sm
+
 
 if __name__ == '__main__':
     FiltroApp().run()
